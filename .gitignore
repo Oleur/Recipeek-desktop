@@ -29,3 +29,6 @@ build/
 # Android Studio/IDEA
 *.iml
 .idea
+
+#macOS
+.DS_STORE

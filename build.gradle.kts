@@ -3,8 +3,8 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.21"
-    id("org.jetbrains.compose") version "1.0.0-alpha3"
+    kotlin("jvm") version "1.6.10"
+    id("org.jetbrains.compose") version "1.1.1"
 }
 
 group = "me.juliensalvi"
@@ -18,10 +18,9 @@ repositories {
 
 dependencies {
     implementation(compose.desktop.currentOs)
-    implementation("com.android.support.constraint:constraint-layout:2.0.1")
 }
 
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
 

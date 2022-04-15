@@ -2,7 +2,11 @@
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -15,7 +19,6 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.WindowSize
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import data.RecipeRepository
@@ -35,7 +38,10 @@ fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
         title = "Recipeek",
-        state = WindowState(size = WindowSize(1200.dp, 628.dp)),
+        state = WindowState(
+            width = 380.dp,
+            height = 600.dp,
+        ),
         onPreviewKeyEvent = { keyEvent ->
         when (keyEvent.key) {
             Key.Escape -> {
@@ -77,7 +83,6 @@ fun App(nav: MutableState<Nav>) {
                             recipeId = (nav.value as RecipeDetails).recipeId,
                             viewModel = viewModel
                         ) {
-                            println("xxxx home")
                             nav.value = Home
                         }
                     }
