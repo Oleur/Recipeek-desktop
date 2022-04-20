@@ -54,7 +54,7 @@ import ui.theme.AppColorsTheme
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
-fun HomeScreen(viewModel: RecipesViewModel, onRecipeClicked: (Int) -> Unit) {
+fun HomeScreen(viewModel: RecipesViewModel, onThemeChanged: () -> Unit, onRecipeClicked: (Int) -> Unit) {
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
 
     viewModel.getRecipes()
@@ -73,7 +73,7 @@ fun HomeScreen(viewModel: RecipesViewModel, onRecipeClicked: (Int) -> Unit) {
                 actions = {
                     IconButton(
                         onClick = {
-                            // TODO
+                            onThemeChanged()
                         }
                     ) {
                         Icon(Icons.Filled.Settings, null)

@@ -1,9 +1,15 @@
 package ui.theme
 
-import androidx.compose.desktop.DesktopMaterialTheme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors
-import androidx.compose.runtime.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 private val LightColorPalette = AppColors(
@@ -112,7 +118,7 @@ fun RecipeekTheme(
         LightColorPalette
     }
     ProvideAppColors(colors) {
-        DesktopMaterialTheme(
+        MaterialTheme(
             colors = debugColors(darkTheme = darkTheme),
             typography = Typography,
             shapes = RecipeekShapes,

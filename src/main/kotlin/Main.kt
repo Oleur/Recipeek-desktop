@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -65,16 +67,20 @@ fun App(nav: MutableState<Nav>) {
     val repository = RecipeRepository()
     val viewModel = RecipesViewModel(repository)
 
-    RecipeekTheme {
+    var isDarkMode by rememberSaveable { mutableStateOf(false) }
+
+    RecipeekTheme(darkTheme = isDarkMode) {
         val density = LocalDensity.current
         val threshold = density.run { 400.dp.toPx() }
         BoxWithConstraints {
             if (maxWidth.value > threshold) {
-                TwoColumnsLayout(viewModel)
+                TwoColumnsLayout(viewModel) {
+                    isDarkMode = !isDarkMode
+                }
             } else {
                 when(nav.value) {
                     Home -> {
-                        HomeScreen(viewModel) { recipeId ->
+                        HomeScreen(viewModel, { isDarkMode = !isDarkMode }) { recipeId ->
                             nav.value = RecipeDetails(recipeId)
                         }
                     }
@@ -96,10 +102,10 @@ fun App(nav: MutableState<Nav>) {
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Composable
-fun TwoColumnsLayout(viewModel: RecipesViewModel) {
+fun TwoColumnsLayout(viewModel: RecipesViewModel, onThemeChanged: () -> Unit) {
     Row(Modifier.fillMaxSize()) {
         Box(modifier = Modifier.fillMaxWidth(0.4f), contentAlignment = Alignment.Center) {
-            HomeScreen(viewModel) {
+            HomeScreen(viewModel, onThemeChanged) {
                 viewModel.getRecipe(it)
             }
         }
